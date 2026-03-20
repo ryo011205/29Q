@@ -533,7 +533,7 @@
   <div id="titleScreen" class="screen active">
     <div class="title-logo">
       <h1>29Q</h1>
-      <p>たのしく まなぼう！</p>
+      <p>Catch the CATs！</p>
     </div>
 
     <div class="mascot-wrap">
@@ -591,7 +591,7 @@
 
     <!-- Math operator selection -->
     <div class="card" id="mathOpsCard" style="display:none">
-      <div class="section-title">➕ けいさんのしゅるい（複数えらべる）</div>
+      <div class="section-title">➕ けいさん</div>
       <div class="btn-grid cols-4">
         <button class="select-btn" id="btnOpAdd" onclick="toggleOp('add')"><span class="btn-icon">➕</span>たし算</button>
         <button class="select-btn" id="btnOpSub" onclick="toggleOp('sub')"><span class="btn-icon">➖</span>ひき算</button>
@@ -611,10 +611,10 @@
           <span class="btn-icon">🔡</span>小文字
         </button>
         <button class="select-btn" id="btnWord" onclick="selectEngType('word')">
-          <span class="btn-icon">📝</span>たんご
+          <span class="btn-icon">📝</span>英単語
         </button>
         <button class="select-btn" id="btnMeaning" onclick="selectEngType('meaning')">
-          <span class="btn-icon">💬</span>いみ
+          <span class="btn-icon">💬</span>意味
         </button>
       </div>
     </div>
@@ -643,12 +643,12 @@
           <span class="btn-icon">👆</span>えらぶ
         </button>
         <button class="select-btn" id="btnInput" onclick="selectMode('input')">
-          <span class="btn-icon">⌨️</span>にゅうりょく
+          <span class="btn-icon">⌨️</span>入力
         </button>
       </div>
     </div>
 
-    <button class="start-btn" onclick="startGame()">✨ スタート！</button>
+    <button class="start-btn" onclick="startGame()">スタート✨ </button>
 
     <button class="nav-btn secondary" style="margin-top:10px;" onclick="showScreen('collectionScreen')">
       🏆 コレクション
@@ -728,7 +728,7 @@
   <div id="collectionScreen" class="screen">
     <div style="text-align:center;margin:10px 0 16px;">
       <h2 style="font-size:1.6rem;font-weight:900;color:var(--navy);">🏆 コレクション</h2>
-      <p style="font-size:0.85rem;color:#999;">ゲームにかって キャラをあつめよう！</p>
+      <p style="font-size:0.85rem;color:#999;">ゲームをクリアしてネコをあつめよう！</p>
     </div>
     <div class="collection-grid" id="collectionGrid"></div>
     <button class="nav-btn secondary" onclick="showScreen('titleScreen')">🏠 もどる</button>
