@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>29Q</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=M+PLUS+Rounded+1c:wght@400;700;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;900&family=M+PLUS+Rounded+1c:wght@400;700;900&display=swap');
 
   :root {
     --sky: #6EC6F0;
@@ -55,11 +55,18 @@
     text-align: center;
   }
   .title-logo h1 {
-    font-size: clamp(2.2rem, 8vw, 3.5rem);
-    font-weight: 900;
-    color: var(--navy);
-    text-shadow: 4px 4px 0 var(--sun), 6px 6px 0 rgba(0,0,0,0.1);
-    letter-spacing: 2px;
+    font-family: 'Fredoka One', 'M PLUS Rounded 1c', cursive;
+    font-size: clamp(2.8rem, 10vw, 4.5rem);
+    font-weight: 400;
+    color: white;
+    text-shadow:
+      0 0 0 white,
+      3px 3px 0 #FF6B9D,
+      5px 5px 0 #9B5DE5,
+      7px 7px 0 rgba(0,0,0,0.12);
+    letter-spacing: 6px;
+    line-height: 1;
+    -webkit-text-stroke: 2px rgba(155,93,229,0.3);
   }
   .title-logo p {
     font-size: 1rem;
@@ -70,7 +77,54 @@
 
   .mascot-wrap {
     margin: 18px 0 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
+
+  .mascot-upload-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+
+  .mascot-img-wrap {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.7);
+    box-shadow: 0 4px 18px rgba(155,93,229,0.2), 0 0 0 4px rgba(255,255,255,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: box-shadow 0.2s, transform 0.2s;
+  }
+  .mascot-upload-area:hover .mascot-img-wrap {
+    box-shadow: 0 6px 24px rgba(155,93,229,0.35), 0 0 0 4px var(--purple);
+    transform: scale(1.05);
+  }
+
+  .mascot-upload-hint {
+    font-size: 0.75rem;
+    color: #999;
+    font-weight: 700;
+  }
+
+  .mascot-reset-btn {
+    background: none;
+    border: 1.5px solid #ddd;
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-family: inherit;
+    font-size: 0.75rem;
+    color: #aaa;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .mascot-reset-btn:hover { border-color: var(--red); color: var(--red); background: #fff0f0; }
 
   .card {
     background: var(--card-bg);
@@ -96,21 +150,22 @@
   }
   .btn-grid.cols-2 { grid-template-columns: 1fr 1fr; }
   .btn-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .btn-grid.cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
 
   .select-btn {
     padding: 14px 8px;
-    border: 3px solid transparent;
+    border: 3px solid #e0e0f0;
     border-radius: 14px;
     font-family: inherit;
     font-size: 1rem;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.15s;
-    background: #f0f4ff;
-    color: var(--navy);
+    background: white;
+    color: #aaa;
     text-align: center;
   }
-  .select-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+  .select-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.1); border-color: #c0b0e8; color: var(--navy); }
   .select-btn.selected {
     border-color: var(--purple);
     background: var(--purple);
@@ -478,25 +533,47 @@
   <div id="titleScreen" class="screen active">
     <div class="title-logo">
       <h1>29Q</h1>
-      <p>Catch the CATs</p>
+      <p>たのしく まなぼう！</p>
     </div>
 
     <div class="mascot-wrap">
-      <!-- Mascot: friendly star character -->
-      <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-        <!-- Body -->
-        <polygon points="60,10 72,42 106,42 79,62 90,95 60,75 30,95 41,62 14,42 48,42" fill="#FFD93D" stroke="#E8A800" stroke-width="3"/>
-        <!-- Face -->
-        <circle cx="52" cy="52" r="5" fill="#1A1A4E"/>
-        <circle cx="68" cy="52" r="5" fill="#1A1A4E"/>
-        <path d="M50,64 Q60,74 70,64" stroke="#1A1A4E" stroke-width="3" fill="none" stroke-linecap="round"/>
-        <!-- Cheeks -->
-        <circle cx="44" cy="60" r="6" fill="#FF9F43" opacity="0.5"/>
-        <circle cx="76" cy="60" r="6" fill="#FF9F43" opacity="0.5"/>
-        <!-- Shine -->
-        <circle cx="49" cy="49" r="2" fill="white" opacity="0.8"/>
-        <circle cx="65" cy="49" r="2" fill="white" opacity="0.8"/>
-      </svg>
+      <div class="mascot-upload-area" id="mascotArea" onclick="document.getElementById('mascotFileInput').click()">
+        <div class="mascot-img-wrap" id="mascotImgWrap">
+          <!-- Default cat SVG -->
+          <svg id="mascotDefaultSvg" width="100" height="100" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <!-- Body -->
+            <circle cx="60" cy="72" r="34" fill="#A0C4FF"/>
+            <!-- Ears -->
+            <polygon points="22,38 34,12 46,38" fill="#A0C4FF"/>
+            <polygon points="74,38 86,12 98,38" fill="#A0C4FF"/>
+            <polygon points="25,38 34,18 43,38" fill="#FFB3C6"/>
+            <polygon points="77,38 86,18 95,38" fill="#FFB3C6"/>
+            <!-- Head -->
+            <circle cx="60" cy="58" r="32" fill="#A0C4FF"/>
+            <!-- Eyes -->
+            <ellipse cx="48" cy="54" rx="6" ry="7" fill="#1A1A4E"/>
+            <ellipse cx="72" cy="54" rx="6" ry="7" fill="#1A1A4E"/>
+            <circle cx="50" cy="51" r="2" fill="white" opacity="0.8"/>
+            <circle cx="74" cy="51" r="2" fill="white" opacity="0.8"/>
+            <!-- Nose -->
+            <ellipse cx="60" cy="66" rx="4" ry="3" fill="#FFB3C6"/>
+            <!-- Mouth -->
+            <path d="M54,70 Q60,76 66,70" stroke="#1A1A4E" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <!-- Cheeks -->
+            <circle cx="40" cy="64" r="8" fill="#FFB3C6" opacity="0.4"/>
+            <circle cx="80" cy="64" r="8" fill="#FFB3C6" opacity="0.4"/>
+            <!-- Whiskers -->
+            <line x1="20" y1="63" x2="48" y2="67" stroke="#1A1A4E" stroke-width="1.5" opacity="0.5"/>
+            <line x1="20" y1="70" x2="48" y2="70" stroke="#1A1A4E" stroke-width="1.5" opacity="0.5"/>
+            <line x1="72" y1="67" x2="100" y2="63" stroke="#1A1A4E" stroke-width="1.5" opacity="0.5"/>
+            <line x1="72" y1="70" x2="100" y2="70" stroke="#1A1A4E" stroke-width="1.5" opacity="0.5"/>
+          </svg>
+          <img id="mascotCustomImg" style="display:none; width:100px; height:100px; object-fit:contain; border-radius:50%;" />
+        </div>
+        <div class="mascot-upload-hint" id="mascotUploadHint">📷 タップして画像をせってい</div>
+        <button class="mascot-reset-btn" id="mascotResetBtn" style="display:none" onclick="resetMascot(event)">✕ リセット</button>
+      </div>
+      <input type="file" id="mascotFileInput" accept="image/*" style="display:none" onchange="handleMascotUpload(event)"/>
     </div>
 
     <!-- Subject -->
@@ -512,10 +589,21 @@
       </div>
     </div>
 
+    <!-- Math operator selection -->
+    <div class="card" id="mathOpsCard" style="display:none">
+      <div class="section-title">➕ けいさんのしゅるい（複数えらべる）</div>
+      <div class="btn-grid cols-4">
+        <button class="select-btn" id="btnOpAdd" onclick="toggleOp('add')"><span class="btn-icon">➕</span>たし算</button>
+        <button class="select-btn" id="btnOpSub" onclick="toggleOp('sub')"><span class="btn-icon">➖</span>ひき算</button>
+        <button class="select-btn" id="btnOpMul" onclick="toggleOp('mul')"><span class="btn-icon">✖️</span>かけ算</button>
+        <button class="select-btn" id="btnOpDiv" onclick="toggleOp('div')"><span class="btn-icon">➗</span>わり算</button>
+      </div>
+    </div>
+
     <!-- Eng sub-type -->
     <div class="card" id="engTypeCard" style="display:none">
       <div class="section-title">✏️ えいご もんだい</div>
-      <div class="btn-grid cols-3">
+      <div class="btn-grid cols-4">
         <button class="select-btn" id="btnUpper" onclick="selectEngType('upper')">
           <span class="btn-icon">🅰️</span>大文字
         </button>
@@ -525,12 +613,15 @@
         <button class="select-btn" id="btnWord" onclick="selectEngType('word')">
           <span class="btn-icon">📝</span>たんご
         </button>
+        <button class="select-btn" id="btnMeaning" onclick="selectEngType('meaning')">
+          <span class="btn-icon">💬</span>いみ
+        </button>
       </div>
     </div>
 
     <!-- Difficulty -->
     <div class="card">
-      <div class="section-title">✍️むずかしさ</div>
+      <div class="section-title">⚡ むずかしさ</div>
       <div class="btn-grid cols-3">
         <button class="select-btn difficulty-soft" id="btnSoft" onclick="selectDiff('soft')">
           <span class="btn-icon">🌱</span>ソフト
@@ -652,37 +743,80 @@
 // ============================================================
 //  DATA
 // ============================================================
-const WORDS = {
-  soft:   ['cat','dog','red','run','sun','hat','cup','big','ant','map','bus','egg','fox','ink','jam','key','leg','net','owl','pen'],
-  normal: ['apple','bread','chair','cloud','dance','earth','fence','green','happy','juice','knife','lemon','music','night','ocean','paint','queen','river','smile','tiger'],
-  hard:   ['animal','banana','castle','desert','engine','flower','garden','helmet','island','jungle','kettle','locket','monkey','number','orange','palace','rabbit','school','temple','umbrella']
-};
+// 単語リスト { en: 英単語, ja: 日本語意味 }
+const WORD_LIST = [
+  {en:'lesson',   ja:'授業'},
+  {en:'book',     ja:'本'},
+  {en:'move',     ja:'動く'},
+  {en:'motor',    ja:'原動機'},
+  {en:'sensor',   ja:'感知器'},
+  {en:'rotations',ja:'回転数'},
+  {en:'degrees',  ja:'角度'},
+  {en:'seconds',  ja:'秒数'},
+  {en:'time',     ja:'時間'},
+  {en:'start',    ja:'開始'},
+  {en:'stop',     ja:'停止'},
+  {en:'set',      ja:'設定'},
+  {en:'wait',     ja:'まつ'},
+  {en:'if',       ja:'もし'},
+  {en:'repeat',   ja:'繰り返す'},
+  {en:'count',    ja:'数える'},
+  {en:'touch',    ja:'触れる'},
+  {en:'line',     ja:'線'},
+  {en:'trace',    ja:'跡'},
+  {en:'up',       ja:'上がる'},
+  {en:'down',     ja:'下がる'},
+  {en:'forward',  ja:'前方'},
+  {en:'backward', ja:'後方'},
+  {en:'right',    ja:'右'},
+  {en:'left',     ja:'左'},
+  {en:'center',   ja:'中央'},
+  {en:'import',   ja:'取り込む'},
+  {en:'pair',     ja:'一対'},
+  {en:'color',    ja:'色'},
+  {en:'red',      ja:'赤'},
+  {en:'green',    ja:'緑'},
+  {en:'blue',     ja:'青'},
+  {en:'yellow',   ja:'黄色'},
+  {en:'black',    ja:'黒'},
+  {en:'white',    ja:'白'},
+  {en:'print',    ja:'印刷'},
+  {en:'write',    ja:'書く'},
+  {en:'sound',    ja:'音'},
+  {en:'True',     ja:'真'},
+  {en:'False',    ja:'偽'},
+  {en:'pass',     ja:'過ぎ去る'},
+];
 
 const UPPERCASE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
 const LOWERCASE_CHARS = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
 // Math question generator
 function genMath(diff) {
-  const ops = {
-    soft:   ['+','-'],
-    normal: ['+','-','×'],
-    hard:   ['+','-','×','÷']
-  }[diff];
-  const op = ops[Math.floor(Math.random()*ops.length)];
+  // Build op list from selected ops, filtered by difficulty availability
+  const allOps = [...state.mathOps];
+  const allowed = allOps.filter(op => {
+    if(op === 'mul') return diff !== 'soft'; // かけ算はノーマル以上
+    if(op === 'div') return diff === 'hard';  // わり算はハードのみ
+    return true;
+  });
+  const opPool = allowed.length > 0 ? allowed : allOps; // fallback
+  const opKey = opPool[Math.floor(Math.random()*opPool.length)];
+  const opSymbol = {add:'+', sub:'-', mul:'×', div:'÷'}[opKey];
   let a,b,ans;
-  if(op==='+'){
+  if(opKey==='add'){
     const max = diff==='soft'?20:diff==='normal'?100:999;
     a = rnd(1,max); b = rnd(1,max); ans = a+b;
-  } else if(op==='-'){
+  } else if(opKey==='sub'){
     const max = diff==='soft'?20:diff==='normal'?100:999;
     a = rnd(2,max); b = rnd(1,a); ans = a-b;
-  } else if(op==='×'){
+  } else if(opKey==='mul'){
     const max = diff==='normal'?9:12;
     a = rnd(1,max); b = rnd(1,max); ans = a*b;
-  } else { // ÷
+  } else { // div
     b = rnd(1,12); ans = rnd(1,12); a = b*ans;
   }
-  return { text: `${a} ${op} ${b} ＝ ？`, answer: String(ans) };
+  return { text: `${a} ${opSymbol} ${b} ＝ ？`, answer: String(ans) };
 }
 
 function rnd(min,max){ return Math.floor(Math.random()*(max-min+1))+min; }
@@ -694,6 +828,7 @@ function shuffle(arr){ return [...arr].sort(()=>Math.random()-0.5); }
 // ============================================================
 let state = {
   subject: null, engType: null, difficulty: null, mode: null,
+  mathOps: new Set(['add','sub','mul','div']),
   questionIdx: 0, correct: 0, totalChars: 0, startTime: null,
   currentQ: null, wordLetterIdx: 0, wordLetterOrder: [],
   timer: null, timeLeft: 0, totalTime: 0,
@@ -701,27 +836,103 @@ let state = {
 };
 
 // ============================================================
-//  CHARACTERS (SVG)
+//  CHARACTERS（カスタム画像設定）
+//  ▼ ここに画像を追加してください ▼
+//  形式: { id:'一意のID', name:'なまえ', img: '画像のbase64またはURL' }
+//
+//  【base64の埋め込み方】
+//    1. 画像ファイルをbase64に変換（例: https://www.base64-image.de/）
+//    2. img: 'data:image/png;base64,ここにbase64文字列' と書く
+//
+//  【URLで指定する場合】
+//    img: 'https://example.com/image.png'
+//
+//  ▼ サンプル（3枚。必要なだけ追加してください） ▼
 // ============================================================
 const CHARACTERS = [
-  { id:'star', name:'スター', color:'#FFD93D', svg: starSVG },
-  { id:'bear', name:'クマ',   color:'#c9a06a', svg: bearSVG },
-  { id:'cat',  name:'ネコ',   color:'#A0C4FF', svg: catSVG  },
-  { id:'bunny',name:'ウサギ', color:'#FFB3C6', svg: bunnySVG},
-  { id:'frog', name:'カエル', color:'#6BCB77', svg: frogSVG },
-  { id:'robot',name:'ロボット',color:'#9B5DE5',svg: robotSVG},
-  { id:'sun',  name:'たいよう',color:'#FFD93D', svg: sunSVG  },
-  { id:'moon', name:'つき',   color:'#C8AAFF', svg: moonSVG },
+  // ===== ここから画像を追加 =====
+  {
+    id: 'chara_01',
+    name: 'キャラ1',
+    img: null  // ← ここをbase64またはURLに変える
+  },
+  {
+    id: 'chara_02',
+    name: 'キャラ2',
+    img: null
+  },
+  {
+    id: 'chara_03',
+    name: 'キャラ3',
+    img: null
+  },
+  // ===== ここまで。以下を複製して追加できます =====
+  // {
+  //   id: 'chara_04',
+  //   name: 'キャラ4',
+  //   img: 'data:image/png;base64,iVBORw0KGgo...'
+  // },
 ];
 
-function starSVG(){return`<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><polygon points="40,8 49,30 73,30 54,45 61,68 40,54 19,68 26,45 7,30 31,30" fill="#FFD93D" stroke="#E8A800" stroke-width="2.5"/><circle cx="33" cy="36" r="3.5" fill="#1A1A4E"/><circle cx="47" cy="36" r="3.5" fill="#1A1A4E"/><path d="M33,48 Q40,56 47,48" stroke="#1A1A4E" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>`}
-function bearSVG(){return`<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><circle cx="40" cy="45" r="26" fill="#c9a06a"/><circle cx="22" cy="24" r="12" fill="#c9a06a"/><circle cx="58" cy="24" r="12" fill="#c9a06a"/><circle cx="22" cy="24" r="7" fill="#e8c49a"/><circle cx="58" cy="24" r="7" fill="#e8c49a"/><ellipse cx="40" cy="52" rx="11" ry="8" fill="#e8c49a"/><circle cx="33" cy="42" r="3.5" fill="#1A1A4E"/><circle cx="47" cy="42" r="3.5" fill="#1A1A4E"/><ellipse cx="40" cy="52" rx="4" ry="2.5" fill="#b07060"/><circle cx="31" cy="50" r="4" fill="#ff9999" opacity="0.5"/><circle cx="49" cy="50" r="4" fill="#ff9999" opacity="0.5"/></svg>`}
-function catSVG(){return`<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><circle cx="40" cy="46" r="24" fill="#A0C4FF"/><polygon points="16,28 24,10 32,28" fill="#A0C4FF"/><polygon points="48,28 56,10 64,28" fill="#A0C4FF"/><polygon points="18,28 24,14 30,28" fill="#FFB3C6"/><polygon points="50,28 56,14 62,28" fill="#FFB3C6"/><circle cx="33" cy="43" r="3.5" fill="#1A1A4E"/><circle cx="47" cy="43" r="3.5" fill="#1A1A4E"/><ellipse cx="40" cy="52" rx="4" ry="2.5" fill="#FFB3C6"/><line x1="26" y1="50" x2="16" y2="48" stroke="#1A1A4E" stroke-width="1.5"/><line x1="26" y1="53" x2="15" y2="53" stroke="#1A1A4E" stroke-width="1.5"/><line x1="54" y1="50" x2="64" y2="48" stroke="#1A1A4E" stroke-width="1.5"/><line x1="54" y1="53" x2="65" y2="53" stroke="#1A1A4E" stroke-width="1.5"/></svg>`}
-function bunnySVG(){return`<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><circle cx="40" cy="48" r="22" fill="#FFB3C6"/><ellipse cx="26" cy="22" rx="8" ry="18" fill="#FFB3C6"/><ellipse cx="54" cy="22" rx="8" ry="18" fill="#FFB3C6"/><ellipse cx="26" cy="22" rx="4" ry="14" fill="#ff8aad"/><ellipse cx="54" cy="22" rx="4" ry="14" fill="#ff8aad"/><circle cx="33" cy="45" r="3.5" fill="#1A1A4E"/><circle cx="47" cy="45" r="3.5" fill="#1A1A4E"/><ellipse cx="40" cy="54" rx="4" ry="2.5" fill="#ff8aad"/></svg>`}
-function frogSVG(){return`<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><circle cx="40" cy="48" r="24" fill="#6BCB77"/><circle cx="26" cy="28" r="10" fill="#6BCB77"/><circle cx="54" cy="28" r="10" fill="#6BCB77"/><circle cx="26" cy="28" r="6" fill="white"/><circle cx="54" cy="28" r="6" fill="white"/><circle cx="26" cy="28" r="3.5" fill="#1A1A4E"/><circle cx="54" cy="28" r="3.5" fill="#1A1A4E"/><path d="M30,58 Q40,66 50,58" stroke="#1A1A4E" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>`}
-function robotSVG(){return`<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="30" width="48" height="36" rx="8" fill="#9B5DE5"/><rect x="24" y="16" width="32" height="20" rx="6" fill="#9B5DE5"/><rect x="28" y="8" width="8" height="10" rx="3" fill="#C8AAFF"/><rect x="44" y="8" width="8" height="10" rx="3" fill="#C8AAFF"/><rect x="30" y="38" width="10" height="10" rx="4" fill="#FFD93D"/><rect x="40" y="38" width="10" height="10" rx="4" fill="#FFD93D"/><rect x="28" y="22" width="10" height="7" rx="3" fill="#FFD93D"/><rect x="42" y="22" width="10" height="7" rx="3" fill="#FFD93D"/><rect x="26" y="54" width="28" height="6" rx="3" fill="#7040bb"/></svg>`}
-function sunSVG(){return`<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#E8A800" stroke-width="3"><line x1="40" y1="6" x2="40" y2="18"/><line x1="40" y1="62" x2="40" y2="74"/><line x1="6" y1="40" x2="18" y2="40"/><line x1="62" y1="40" x2="74" y2="40"/><line x1="16" y1="16" x2="24" y2="24"/><line x1="56" y1="56" x2="64" y2="64"/><line x1="64" y1="16" x2="56" y2="24"/><line x1="24" y1="56" x2="16" y2="64"/></g><circle cx="40" cy="40" r="18" fill="#FFD93D" stroke="#E8A800" stroke-width="2.5"/><circle cx="34" cy="37" r="3" fill="#1A1A4E"/><circle cx="46" cy="37" r="3" fill="#1A1A4E"/><path d="M34,46 Q40,52 46,46" stroke="#1A1A4E" stroke-width="2.5" fill="none" stroke-linecap="round"/></svg>`}
-function moonSVG(){return`<svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><path d="M50,14 Q26,20 26,40 Q26,60 50,66 Q28,70 18,52 Q8,34 22,20 Z" fill="#C8AAFF" stroke="#9B5DE5" stroke-width="2"/><circle cx="34" cy="36" r="2.5" fill="#1A1A4E"/><circle cx="44" cy="42" r="2.5" fill="#1A1A4E"/><path d="M32,50 Q38,56 44,50" stroke="#1A1A4E" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="56" cy="20" r="3" fill="#FFD93D" opacity="0.8"/><circle cx="62" cy="36" r="2" fill="#FFD93D" opacity="0.6"/><circle cx="58" cy="54" r="2.5" fill="#FFD93D" opacity="0.7"/></svg>`}
+// キャラクター1枚分のHTML生成
+function charSlotHTML(char, unlocked) {
+  const imgContent = char.img
+    ? `<img src="${char.img}" style="width:70%;height:70%;object-fit:contain;border-radius:8px;" />`
+    : `<span style="font-size:2rem;">🎁</span>`;
+  return `${imgContent}<span>${char.name}</span>`;
+}
+
+// ============================================================
+//  MASCOT IMAGE UPLOAD
+// ============================================================
+function handleMascotUpload(event) {
+  const file = event.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const dataUrl = e.target.result;
+    // Save to localStorage
+    try { localStorage.setItem('mascotImg', dataUrl); } catch(err) { /* storage full */ }
+    applyMascotImage(dataUrl);
+  };
+  reader.readAsDataURL(file);
+}
+
+function applyMascotImage(dataUrl) {
+  const defaultSvg = document.getElementById('mascotDefaultSvg');
+  const customImg  = document.getElementById('mascotCustomImg');
+  const hint       = document.getElementById('mascotUploadHint');
+  const resetBtn   = document.getElementById('mascotResetBtn');
+  if(defaultSvg) defaultSvg.style.display = 'none';
+  if(customImg)  { customImg.src = dataUrl; customImg.style.display = 'block'; }
+  if(hint)       hint.textContent = '📷 タップして変更';
+  if(resetBtn)   resetBtn.style.display = 'inline-block';
+}
+
+function resetMascot(event) {
+  event.stopPropagation();
+  localStorage.removeItem('mascotImg');
+  const defaultSvg = document.getElementById('mascotDefaultSvg');
+  const customImg  = document.getElementById('mascotCustomImg');
+  const hint       = document.getElementById('mascotUploadHint');
+  const resetBtn   = document.getElementById('mascotResetBtn');
+  if(defaultSvg) defaultSvg.style.display = '';
+  if(customImg)  { customImg.src = ''; customImg.style.display = 'none'; }
+  if(hint)       hint.textContent = '📷 タップして画像をせってい';
+  if(resetBtn)   resetBtn.style.display = 'none';
+  document.getElementById('mascotFileInput').value = '';
+}
+
+// Load saved mascot on startup
+(function() {
+  const saved = localStorage.getItem('mascotImg');
+  if(saved) {
+    // Wait for DOM
+    window.addEventListener('DOMContentLoaded', () => applyMascotImage(saved));
+    // Also try immediately in case DOM is already ready
+    if(document.readyState !== 'loading') applyMascotImage(saved);
+  }
+})();
 
 // ============================================================
 //  UI HELPERS
@@ -737,14 +948,24 @@ function selectSubject(s) {
   ['btnMath','btnEng'].forEach(id => document.getElementById(id).classList.remove('selected'));
   document.getElementById(s==='math'?'btnMath':'btnEng').classList.add('selected');
   document.getElementById('engTypeCard').style.display = s==='eng' ? 'block' : 'none';
-  if(s==='math') { state.engType = null; ['btnUpper','btnLower','btnWord'].forEach(id=>document.getElementById(id).classList.remove('selected')); }
+  document.getElementById('mathOpsCard').style.display = s==='math' ? 'block' : 'none';
+  if(s==='math') {
+    state.engType = null;
+    ['btnUpper','btnLower','btnWord','btnMeaning'].forEach(id=>document.getElementById(id).classList.remove('selected'));
+    // 初回選択時は全演算を選択済みにする
+    state.mathOps = new Set(['add','sub','mul','div']);
+    syncOpButtons();
+  }
+  if(s==='eng') {
+    state.mathOps = new Set(['add','sub','mul','div']);
+    syncOpButtons();
+  }
 }
 
 function selectEngType(t) {
   state.engType = t;
-  ['btnUpper','btnLower','btnWord'].forEach(id => document.getElementById(id).classList.remove('selected'));
-  document.getElementById('btnUpper'+(t==='upper'?'':'')).classList.remove('selected');
-  document.getElementById({upper:'btnUpper',lower:'btnLower',word:'btnWord'}[t]).classList.add('selected');
+  ['btnUpper','btnLower','btnWord','btnMeaning'].forEach(id => document.getElementById(id).classList.remove('selected'));
+  document.getElementById({upper:'btnUpper',lower:'btnLower',word:'btnWord',meaning:'btnMeaning'}[t]).classList.add('selected');
 }
 
 function selectDiff(d) {
@@ -757,6 +978,24 @@ function selectMode(m) {
   state.mode = m;
   ['btnSelect','btnInput'].forEach(id => document.getElementById(id).classList.remove('selected'));
   document.getElementById(m==='select'?'btnSelect':'btnInput').classList.add('selected');
+}
+
+function toggleOp(op) {
+  if(state.mathOps.has(op)) {
+    if(state.mathOps.size === 1) return; // 最低1つは選択
+    state.mathOps.delete(op);
+  } else {
+    state.mathOps.add(op);
+  }
+  syncOpButtons();
+}
+
+function syncOpButtons() {
+  const map = {add:'btnOpAdd', sub:'btnOpSub', mul:'btnOpMul', div:'btnOpDiv'};
+  for(const [op, btnId] of Object.entries(map)) {
+    const btn = document.getElementById(btnId);
+    if(btn) btn.classList.toggle('selected', state.mathOps.has(op));
+  }
 }
 
 // ============================================================
@@ -776,9 +1015,15 @@ function generateQuestion() {
     return { type:'letter', text: `この もじの こもじは？\n"${correct.toUpperCase()}"`, answer: correct, chars: LOWERCASE_CHARS };
   }
   if(engType === 'word') {
-    const wordList = WORDS[difficulty];
-    const word = wordList[rnd(0, wordList.length-1)];
-    return { type:'word', text: word, answer: word, chars: null };
+    // 日本語（意味）を見て英単語のつづりを答える
+    const entry = WORD_LIST[rnd(0, WORD_LIST.length-1)];
+    return { type:'word', text: `「${entry.ja}」`, answer: entry.en, chars: null, hint: entry.en.length+'もじ' };
+  }
+  if(engType === 'meaning') {
+    // 英単語を見て日本語の意味を選択 or 入力
+    const entry = WORD_LIST[rnd(0, WORD_LIST.length-1)];
+    const allJa = WORD_LIST.map(w => w.ja);
+    return { type:'meaning', text: entry.en, answer: entry.ja, allAnswers: allJa };
   }
 }
 
@@ -829,11 +1074,16 @@ function loadQuestion() {
 
   // Display question
   if(q.type === 'word') {
-    document.getElementById('questionLabel').textContent = 'つづりをえらぼう！';
-    document.getElementById('questionText').textContent = '🔤 '+q.answer.toUpperCase();
+    document.getElementById('questionLabel').textContent = 'つづりをならべよう！';
+    document.getElementById('questionText').innerHTML = q.text; // 日本語の意味を表示
     document.getElementById('wordProgress').style.display = 'block';
     document.getElementById('wordProgress').textContent = `（${q.answer.length}もじのたんご）`;
     document.getElementById('hintText').textContent = 'じゅんばんにタップ！';
+  } else if(q.type === 'meaning') {
+    document.getElementById('questionLabel').textContent = 'いみをえらぼう！';
+    document.getElementById('questionText').innerHTML = `<span style="font-size:clamp(1.4rem,5vw,2.2rem)">${q.text}</span>`;
+    document.getElementById('wordProgress').style.display = 'none';
+    document.getElementById('hintText').textContent = 'にほんごのいみは？';
   } else {
     document.getElementById('questionLabel').textContent = 'もんだい';
     document.getElementById('questionText').innerHTML = q.text.replace('\n','<br>');
@@ -849,38 +1099,48 @@ function loadQuestion() {
 
 function setupGrid(q) {
   const cells = document.querySelectorAll('.grid-cell');
-  cells.forEach(c => { c.className = 'grid-cell'; c.textContent = ''; });
+  cells.forEach(c => { c.className = 'grid-cell'; c.textContent = ''; c.dataset.letter = ''; c.style.fontSize = ''; });
 
   if(q.type === 'word') {
-    // Show all letters of the word shuffled + some distractors
+    // Show letters of the word shuffled + distractors
     const word = q.answer;
     const needed = word.split('');
-    // Fill remaining cells with random letters (same letter set)
     const allLetters = 'abcdefghijklmnopqrstuvwxyz'.split('');
-    const extras = shuffle(allLetters.filter(l => !needed.includes(l))).slice(0, 9-needed.length);
-    const pool = shuffle([...needed, ...extras]).slice(0,9);
-    // Pad if needed
+    const extras = shuffle(allLetters.filter(l => !needed.includes(l.toLowerCase()))).slice(0, Math.max(0, 9-needed.length));
+    let pool = shuffle([...needed, ...extras]).slice(0,9);
     while(pool.length < 9) pool.push(allLetters[rnd(0,25)]);
     pool.forEach((ch,i) => { cells[i].textContent = ch.toUpperCase(); cells[i].dataset.letter = ch; });
     state.wordLetterOrder = needed;
     state.wordLetterIdx = 0;
-  } else {
+
+  } else if(q.type === 'meaning') {
+    // Show 9 Japanese meanings, one is correct
     const correct = q.answer;
-    let pool;
-    if(q.chars) {
-      // Letter question
-      const others = shuffle(q.chars.filter(c=>c!==correct)).slice(0,8);
-      pool = shuffle([correct, ...others]);
-    } else {
-      // Math
-      const correctNum = parseInt(correct);
-      const others = new Set();
-      while(others.size < 8) {
-        const v = correctNum + rnd(-20,20);
-        if(v !== correctNum && v >= 0) others.add(String(v));
-      }
-      pool = shuffle([correct, ...[...others].slice(0,8)]);
+    const others = shuffle(q.allAnswers.filter(a => a !== correct)).slice(0,8);
+    const pool = shuffle([correct, ...others]).slice(0,9);
+    while(pool.length < 9) pool.push('　');
+    pool.forEach((v,i) => {
+      cells[i].textContent = v;
+      cells[i].style.fontSize = 'clamp(0.75rem,2.8vw,1rem)';
+    });
+
+  } else if(q.chars) {
+    // Letter question
+    const correct = q.answer;
+    const others = shuffle(q.chars.filter(c=>c!==correct)).slice(0,8);
+    const pool = shuffle([correct, ...others]);
+    pool.slice(0,9).forEach((v,i) => { cells[i].textContent = v; });
+
+  } else {
+    // Math
+    const correct = q.answer;
+    const correctNum = parseInt(correct);
+    const others = new Set();
+    while(others.size < 8) {
+      const v = correctNum + rnd(-20,20);
+      if(v !== correctNum && v >= 0) others.add(String(v));
     }
+    const pool = shuffle([correct, ...[...others].slice(0,8)]);
     pool.slice(0,9).forEach((v,i) => { cells[i].textContent = v; });
   }
 }
@@ -907,7 +1167,6 @@ function cellClick(idx) {
       document.getElementById('hintText').textContent = `${state.wordLetterIdx}/${q.answer.length} もじ せいかい！`;
       spawnParticles(cell, '✨');
       if(state.wordLetterIdx >= q.answer.length) {
-        // Full word correct
         clearInterval(state.timer);
         state.correct++;
         state.questionIdx++;
@@ -921,8 +1180,26 @@ function cellClick(idx) {
       showFeedback('💥');
       setTimeout(()=>{ cell.classList.remove('wrong'); }, 500);
     }
+  } else if(q.type === 'meaning') {
+    // Japanese meaning selection
+    const val = cell.textContent.trim();
+    if(val === q.answer) {
+      cell.classList.add('correct');
+      clearInterval(state.timer);
+      state.correct++;
+      state.questionIdx++;
+      document.getElementById('gauge').style.width = (state.correct/10*100)+'%';
+      document.getElementById('gaugeCount').textContent = state.correct+'/10';
+      showFeedback('⭐');
+      spawnParticles(cell, '🎉');
+      setTimeout(loadQuestion, 700);
+    } else {
+      cell.classList.add('wrong');
+      showFeedback('💥');
+      setTimeout(()=>{ cell.classList.remove('wrong'); }, 500);
+    }
   } else {
-    // Normal selection
+    // Normal selection (letter / math)
     const val = cell.textContent;
     if(val === q.answer) {
       cell.classList.add('correct');
@@ -950,6 +1227,8 @@ function submitInput() {
   let isCorrect = false;
   if(q.type === 'word') {
     isCorrect = val.toLowerCase() === q.answer.toLowerCase();
+  } else if(q.type === 'meaning') {
+    isCorrect = val === q.answer;
   } else if(q.chars) {
     isCorrect = val.toUpperCase() === q.answer.toUpperCase() || val.toLowerCase() === q.answer.toLowerCase();
   } else {
@@ -1056,10 +1335,13 @@ function unlockCharacter() {
   localStorage.setItem('unlocked', JSON.stringify(state.unlocked));
 
   const wrap = document.getElementById('rewardWrap');
+  const imgContent = char.img
+    ? `<img src="${char.img}" style="width:70px;height:70px;object-fit:contain;border-radius:10px;" />`
+    : `<span style="font-size:3rem;">🎁</span>`;
   wrap.innerHTML = `
     <p style="font-size:0.9rem;color:#888;margin-bottom:8px;">🎉 ${char.name} をゲット！</p>
-    <div style="width:80px;height:80px;margin:0 auto;background:${char.color}22;border-radius:50%;display:flex;align-items:center;justify-content:center;padding:8px;animation:popIn 0.5s cubic-bezier(.34,1.56,.64,1);">
-      ${char.svg()}
+    <div style="width:90px;height:90px;margin:0 auto;background:#f5f0ff;border-radius:16px;display:flex;align-items:center;justify-content:center;padding:8px;animation:popIn 0.5s cubic-bezier(.34,1.56,.64,1);box-shadow:0 4px 16px rgba(155,93,229,0.25);">
+      ${imgContent}
     </div>
   `;
   wrap.style.display = 'block';
@@ -1100,11 +1382,15 @@ function spawnParticles(el, emoji) {
 function renderCollection() {
   const grid = document.getElementById('collectionGrid');
   grid.innerHTML = '';
+  if(CHARACTERS.length === 0) {
+    grid.innerHTML = '<p style="color:#aaa;font-size:0.9rem;grid-column:1/-1;text-align:center;padding:20px;">キャラがまだ設定されていません</p>';
+    return;
+  }
   CHARACTERS.forEach(char => {
     const unlocked = state.unlocked.includes(char.id);
     const slot = document.createElement('div');
     slot.className = 'char-slot ' + (unlocked ? 'unlocked' : 'locked');
-    slot.innerHTML = char.svg() + `<span>${char.name}</span>`;
+    slot.innerHTML = charSlotHTML(char, unlocked);
     grid.appendChild(slot);
   });
 }
@@ -1112,10 +1398,9 @@ function renderCollection() {
 // ============================================================
 //  INIT
 // ============================================================
-// Default selections
-selectSubject('math');
-selectDiff('normal');
-selectMode('select');
+// Default: no selections (buttons start uncolored)
+// syncOpButtons so math ops buttons reflect initial state when math is first shown
+syncOpButtons();
 </script>
 </body>
 </html>
