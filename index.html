@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>計算ゲーム</title>
+<title> 29Q </title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Helvetica Neue',Arial,sans-serif;background:#F0E8D8;display:flex;justify-content:center;min-height:100vh;padding:16px;}
@@ -246,8 +246,8 @@ h1{font-size:22px;font-weight:700;color:#7A3A10;text-align:center;margin-bottom:
 
     <div id="s-start" class="screen active" style="padding-top:52px;">
       <div class="card">
-        <h1>🧮 計算ゲーム</h1>
-        <p class="sub">タイムアタックに挑戦しよう！</p>
+        <h1>🧮 計算ゲーム 29Q </h1>
+        <p class="sub"> ねこ を つかまえよう！ </p>
         <div class="slbl">計算の種類（1つ選ぼう）</div>
         <div class="op-row">
           <button class="ob on" id="op-add" onclick="pickOp('add')">＋</button>
@@ -255,7 +255,7 @@ h1{font-size:22px;font-weight:700;color:#7A3A10;text-align:center;margin-bottom:
           <button class="ob" id="op-mul" onclick="pickOp('mul')">×</button>
           <button class="ob" id="op-div" onclick="pickOp('div')">÷</button>
         </div>
-        <div class="slbl">かたほうの数を固定する（しない場合は「なし」）</div>
+        <div class="slbl">かたほうの数を決める</div>
         <div class="fbs" id="fix-btns"></div>
         <div class="slbl">モードを選ぼう</div>
         <div class="mode-grid" id="mode-grid"></div>
@@ -266,7 +266,7 @@ h1{font-size:22px;font-weight:700;color:#7A3A10;text-align:center;margin-bottom:
     <div id="s-game" class="screen" style="padding-top:52px;">
       <div class="hud">
         <div class="hi"><div class="hl">もんだい</div><div class="hv" id="g-qnum">1/10</div></div>
-        <div class="hi"><div class="hl">のこり時間</div><div class="hv" id="g-timer">—</div></div>
+        <div class="hi"><div class="hl">タイム</div><div class="hv" id="g-timer">—</div></div>
         <div class="hi"><div class="hl">せいかい</div><div class="hv" id="g-correct">0</div></div>
       </div>
       <div class="bscene">
@@ -473,7 +473,7 @@ function doSub(){
 function timeOut(){
   if(locked||failed)return;
   locked=true;failed=true;cancelAnimationFrame(rafID);clearInterval(ivID);
-  setFb('⏱ じかんきれ！ 正解は '+questions[cur].ans,'ng');
+  setFb('⏱ タイムアップ！ 正解は '+questions[cur].ans,'ng');
   setTimeout(()=>endGame(),1200);
 }
 function setFb(m,c){const e=document.getElementById('feedback');e.textContent=m;e.className='fbk '+c;}
